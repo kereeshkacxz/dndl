@@ -32,10 +32,6 @@ def getApp() -> FastAPI:
         {
             "name": "User",
             "description": "Registration and authorization before further actions.",
-        },
-        {
-            "name": "Video",
-            "description": "Upload video or download it by name.",
         }
     ]
 
