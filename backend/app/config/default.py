@@ -20,6 +20,9 @@ class DefaultSettings(BaseSettings):
     ALGORITHM: str
     ACCESS_TOKEN_EXPIRE_MINUTES: int
 
+    OAUTH_YANDEX_TOKEN: str
+    FOLDER_ID: str
+
     model_config = SettingsConfigDict(env_file=".env")
 
     PWD_CONTEXT: CryptContext = CryptContext(schemes=["bcrypt"], deprecated="auto")
