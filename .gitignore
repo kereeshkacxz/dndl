@@ -7,7 +7,7 @@ __pycache__/
 
 # C extensions
 *.so
-
+.nuxt
 # Distribution / packaging
 .Python
 env/
@@ -37,7 +37,6 @@ htmlcov/
 .tox/
 .coverage
 .cache
-assets/
 nosetests.xml
 coverage.xml
 
