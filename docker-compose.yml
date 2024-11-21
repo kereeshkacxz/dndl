@@ -1,16 +1,16 @@
 services:
-  dndl-nginx:
-    container_name: ${NGINX_HOST}
-    image: nginx:latest
-    ports:
-      - '80:80'  # Проброс порта 80
-    volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
-    depends_on:
-      - dndl-backend
-      - dndl-front
-    networks:
-      - networkName
+  # dndl-nginx:
+  #   container_name: ${NGINX_HOST}
+  #   image: nginx:latest
+  #   ports:
+  #     - '80:80'  # Проброс порта 80
+  #   volumes:
+  #     - ./nginx.conf:/etc/nginx/conf.d/default.conf
+  #   depends_on:
+  #     - dndl-backend
+  #     - dndl-front
+  #   networks:
+  #     - networkName
 
   dndl-db:
     container_name: ${POSTGRES_HOST}
