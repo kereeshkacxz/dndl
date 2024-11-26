@@ -10,11 +10,12 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@nuxt/image": "^1.8.1",
     "axios": "^1.7.7",
+    "jspdf": "^2.5.1",
+    "mammoth": "^1.4.2",
     "nuxt": "^3.13.0",
     "vue": "latest",
-    "vue-router": "latest",
-    "mammoth": "^1.4.2",
-    "jspdf": "^2.5.1" 
+    "vue-router": "latest"
   }
 }

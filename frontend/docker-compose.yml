@@ -23,3 +23,4 @@ services:
     environment:
       - NODE_ENV=development # Установка режима разработки
     command: npm run dev # Команда для запуска приложения в режиме разработки
+    cpus: 0.5
