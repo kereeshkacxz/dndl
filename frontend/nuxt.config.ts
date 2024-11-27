@@ -15,12 +15,12 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: "Atom", // Заголовок страницы
+      title: "DNDL", // Заголовок страницы
       meta: [
         {
           name: "description",
           content:
-            "Automation of requirements verification in a certified circuit",
+            "D&D List Editor is a website designed to simplify the process of creating and managing characters for the Dungeons& Dragons (D&D) tabletop role—playing game.",
         }, // Мета-тег описания
         { name: "viewport", content: "width=device-width, initial-scale=1" }, // Мета-тег для адаптивности
         { name: "keywords", content: "nuxt, vue, app, web-development" }, // Мета-тег ключевых слов
@@ -43,6 +43,10 @@ export default defineNuxtConfig({
           href: "https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap",
         },
         {
+          rel: "stylesheet",
+          href: "https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap",
+        },
+        {
           rel: "icon",
           type: "image/x-icon",
           href: "/favicon.ico",
@@ -54,7 +58,12 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       backendUrl: `${process.env.BACKEND_URL}` || "http://localhost:8080", // URL бэкенда
-      pages: {},
+      pages: {
+        manuals: "Руководства",
+        "training-modules": "Обучающие модули",
+        forum: "Форум",
+        editor: "Редактор",
+      },
     },
   },
 
