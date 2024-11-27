@@ -1,6 +1,5 @@
-from .registration import RegistrationForm, RegistrationSuccess
 from .token import Token, TokenData
-from .user import UserSchema, UserTable
+from .user import UserSchema, UserTable, RegistrationForm, EditForm, LoginForm
 
 
 __all__ = [
@@ -9,5 +8,6 @@ __all__ = [
     "TokenData",
     "Token",
     "RegistrationForm",
-    "RegistrationForm",
+    "LoginForm",
+    "EditForm",
 ]

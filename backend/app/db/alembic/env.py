@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 from sqlalchemy import engine_from_config, pool
 
 
-sys.path.append(os.path.join(os.getcwd(), os.pardir, os.pardir))
+sys.path.append(os.path.join(os.getcwd(), os.pardir, os.pardir, os.pardir))
 
 from app.config import getSettings
 
