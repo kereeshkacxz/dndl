@@ -1,7 +1,7 @@
 from datetime import timedelta
 from typing import Annotated
 
-from fastapi import APIRouter, Body, Depends, HTTPException
+from fastapi import APIRouter, Body, Depends, HTTPException, UploadFile, File
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.ext.asyncio import AsyncSession
 from starlette import status
@@ -10,7 +10,7 @@ from app.config import DefaultSettings, getSettings
 from app.db.connection import getSession
 from app.models import RegistrationForm, Token, UserSchema, UserTable, LoginForm, EditForm
 from app.utils.auth import authenticateUser, createAccessToken, getCurrentUser, registerUser
-
+from app.utils.files import save_file, delete_file, get_file
 
 apiRouter = APIRouter(prefix="/user", tags=["User"])
 
@@ -130,6 +130,41 @@ async def edit_user_info(
     for key, value in data.items():
         if hasattr(current_user, key):
             setattr(current_user, key, value)
+
+    session.add(current_user)
+    await session.commit()
+
+    return current_user
+
+@apiRouter.post(
+    "/avatar_update",
+    responses={
+        status.HTTP_401_UNAUTHORIZED: {
+            "description": "Incorrect username or password",
+        },
+        status.HTTP_400_BAD_REQUEST: {
+            "description": "Invalid file type",
+        },
+    },
+    summary="Upload user avatar",
+)
+async def avatar_upload(
+    file: Annotated[UploadFile, File()],
+    current_user: Annotated[UserTable, Depends(getCurrentUser)],
+    session: AsyncSession = Depends(getSession),
+) -> UserSchema:
+    allowed_types = {"image/jpeg", "image/png", "image/gif"}
+    if file.content_type not in allowed_types:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Invalid file type. Allowed types are: JPEG, PNG, GIF.",
+        )
+
+    if current_user.avatar_id:
+        await delete_file(current_user.avatar_id, session)
+
+    file_data = await save_file(file, "static/avatars/", session)
+    current_user.avatar_id = file_data.id
 
     session.add(current_user)
     await session.commit()

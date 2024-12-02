@@ -4,6 +4,7 @@ from logging import getLogger
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from uvicorn import run
 
 
@@ -59,6 +60,9 @@ def getApp() -> FastAPI:
 
 
 app = getApp()
+
+app.mount("/api/static", StaticFiles(directory="static"), name="static")
+
 
 if __name__ == "__main__":  # pragma: no cover
     settings_for_application = getSettings()

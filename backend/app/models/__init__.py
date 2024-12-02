@@ -1,4 +1,5 @@
 from .token import Token, TokenData
+from .files import FilesTable
 from .user import UserSchema, UserTable, RegistrationForm, EditForm, LoginForm
 
 
@@ -10,4 +11,5 @@ __all__ = [
     "RegistrationForm",
     "LoginForm",
     "EditForm",
+    "FilesTable",
 ]
