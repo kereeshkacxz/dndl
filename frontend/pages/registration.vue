@@ -11,25 +11,23 @@
         <CInput
           placeholder="Введите логин"
           v-model="login"
-          @keyup.enter="registerFunc"
+          @keyup.enter="validation"
         />
         <CInput
           placeholder="Введите пароль"
-          v-model="secondPassword"
+          v-model="password"
           type="password"
-          @keyup.enter="registerFunc"
+          @keyup.enter="validation"
         />
         <CInput
           placeholder="Введите пароль еще раз"
-          v-model="password"
+          v-model="secondPassword"
           type="password"
-          @keyup.enter="registerFunc"
+          @keyup.enter="validation"
         />
       </div>
     </div>
-    <CButton class="btn_login" @click="registerFunc"
-      >Зарегистрироваться</CButton
-    >
+    <CButton class="btn_login" @click="validation">Зарегистрироваться</CButton>
     <NuxtLink to="/login" class="change_window"
       >Уже есть аккаунт? Войти.</NuxtLink
     >
@@ -41,35 +39,85 @@ const { $api } = useNuxtApp();
 const login = ref("");
 const password = ref("");
 const secondPassword = ref("");
+const router = useRouter();
+
+function validation() {
+  if (!login.value) {
+    createNotification("Введите логин!", "unsuccess");
+    return;
+  }
+  if (!password.value) {
+    createNotification("Введите пароль!", "error");
+    return;
+  }
+  if (!secondPassword.value) {
+    createNotification("Повторите пароль!", "error");
+    return;
+  }
+  if (login.value.length < 5) {
+    createNotification("Логин должен быть больше 4 символов!", "error");
+    return;
+  }
+  if (password.value.length < 8) {
+    createNotification("Пароль должен быть больше 7 символов!", "error");
+    return;
+  }
+  if (password.value != secondPassword.value) {
+    createNotification("Введенные пароли не совпадают!", "error");
+    return;
+  }
+
+  registerFunc();
+}
 
 async function registerFunc() {
   try {
-    // const response = await $api.post(
-    //   `/api/Auth/byLogin?login=${login.value}&pass=${password.value}`,
-    //   {
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     params: {
-    //       login: login.value,
-    //       password: password.value,
-    //     },
-    //   }
-    // );
-    // localStorage.setItem("token", response.data);
+    const responseRegister = await $api.post(
+      `/api/v1/user/register`,
+      {
+        username: login.value,
+        password: password.value,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    localStorage.setItem("token", responseRegister.data);
     createNotification("Вы успешно зарегистрировались!", "success");
+    const responseLogin = await $api.post(
+      `/api/v1/user/login`,
+      {
+        username: login.value,
+        password: password.value,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    localStorage.setItem("token", responseLogin.data.access_token);
+    loginHeader();
+    router.push("/");
   } catch (error) {
-    createNotification("Произошла какая-то ошибка :(", "error");
+    createNotification(`${error.response.data.detail}`, "error");
     console.error(error);
   }
 }
+
 onMounted(() => {
+  if (localStorage.getItem("token")) router.push("/");
   fetch();
 });
+
 let createNotification;
+let loginHeader;
 
 function fetch() {
   createNotification = inject("createNotification");
+  loginHeader = inject("loginHeader");
 }
 </script>
 

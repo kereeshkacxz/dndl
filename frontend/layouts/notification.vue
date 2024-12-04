@@ -70,13 +70,13 @@ provide("createNotification", createNotification);
 .notification_container {
   position: fixed;
   bottom: 20px;
-  right: 20px;
+  right: 0;
   z-index: 1000;
   max-width: 500px;
 }
 
 .notification {
-  margin: 10px 0;
+  margin: 10px 10px;
   padding: 15px;
   border-radius: 5px;
   color: white;

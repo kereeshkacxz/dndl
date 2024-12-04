@@ -19,9 +19,10 @@ services:
     env_file:
       - ./.env
     ports:
-      - '${POSTGRES_PORT}:${POSTGRES_PORT}'
+      - "${POSTGRES_PORT}:${POSTGRES_PORT}"
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "${POSTGRES_USER}", "-d", "${POSTGRES_DB}"]
+      test:
+        ["CMD", "pg_isready", "-U", "${POSTGRES_USER}", "-d", "${POSTGRES_DB}"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -37,7 +38,7 @@ services:
       context: ./backend
       dockerfile: ./Dockerfile
     ports:
-      - '${BACKEND_PORT}:${BACKEND_PORT}'
+      - "${BACKEND_PORT}:${BACKEND_PORT}"
     env_file:
       - ./.env
     depends_on:
@@ -48,33 +49,33 @@ services:
     networks:
       - networkName
 
-  # dndl-front:
-  #   container_name: ${FRONTEND_HOST}
-  #   hostname: ${FRONTEND_HOST}
-  #   build:
-  #     context: ./frontend
-  #     dockerfile: ./Dockerfile
-  #   ports:
-  #     - '${FRONTEND_PORT}:${FRONTEND_PORT}'
-  #   env_file:
-  #     - ./.env
-  #   restart: on-failure
-  #   volumes:
-  #     - ./frontend/assets:/web/assets
-  #     - ./frontend/components:/web/components
-  #     - ./frontend/layouts:/web/layouts
-  #     - ./frontend/middleware:/web/middleware
-  #     - ./frontend/pages:/web/pages
-  #     - ./frontend/plugins:/web/plugins
-  #     - ./frontend/public:/web/public
-  #     - ./frontend/utils:/web/utils
-  #     - ./frontend/nuxt.config.ts:/web/nuxt.config.ts
-  #   environment:
-  #     - NODE_ENV=development
-  #   networks:
-  #     - networkName
-  #   command: npm run dev
-
+  dndl-front:
+    container_name: ${FRONTEND_HOST}
+    hostname: ${FRONTEND_HOST}
+    build:
+      context: ./frontend
+      dockerfile: ./Dockerfile
+    ports:
+      - "${FRONTEND_PORT}:${FRONTEND_PORT}"
+    env_file:
+      - ./.env
+    restart: on-failure
+    volumes:
+      - ./frontend/assets:/web/assets
+      - ./frontend/components:/web/components
+      - ./frontend/layouts:/web/layouts
+      - ./frontend/middleware:/web/middleware
+      - ./frontend/pages:/web/pages
+      - ./frontend/plugins:/web/plugins
+      - ./frontend/public:/web/public
+      - ./frontend/utils:/web/utils
+      - ./frontend/nuxt.config.ts:/web/nuxt.config.ts
+    environment:
+      - NODE_ENV=development
+    networks:
+      - networkName
+    command: npm run dev
+    cpus: 0.5
 
 networks:
   networkName:

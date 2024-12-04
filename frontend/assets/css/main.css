@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  --bg-grad: url("~/public/background.png");
+  --bg-grad: url("~/public/background-original.png");
   --font-size: 18px;
   --header-height: 60px;
 
@@ -18,6 +18,12 @@
   font-weight: 350;
   font-style: normal;
   font-size: var(--font-size);
+}
+
+html,
+body {
+  background-color: #000000;
+  color: #0000ff;
 }
 
 h1 {
@@ -49,11 +55,6 @@ h4 {
 ::-webkit-scrollbar-thumb {
   overflow-x: none;
   background-color: var(--main-color);
-}
-
-.fwh {
-  height: 100vh;
-  width: 100vw;
 }
 
 @font-face {
