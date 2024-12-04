@@ -15,7 +15,18 @@
         >
       </div>
     </transition>
-    <div class="div_login_register">
+    <div
+      v-if="props.login !== ''"
+      class="dropdown"
+      :class="{ active: isMenuOpen }"
+    >
+      <img src="~/public/test.jpg" class="avatar" />
+      <div class="dropdown_menu">
+        <NuxtLink to="/profile" class="dropdown_item"> Профиль</NuxtLink>
+        <NuxtLink class="dropdown_item" @click="logout">Выйти</NuxtLink>
+      </div>
+    </div>
+    <div class="div_login_register" v-else>
       <NuxtLink class="link reglog" :to="`/login`">Вход</NuxtLink>
       <p class="link">/</p>
       <NuxtLink class="link reglog" :to="`/registration`">Регистрация</NuxtLink>
@@ -30,6 +41,12 @@
 const config = useRuntimeConfig();
 const pages = config.public.pages;
 const { $api } = useNuxtApp();
+
+const props = defineProps({
+  logout: Function,
+  login: String,
+});
+
 const isMenuOpen = ref(false);
 const toggleMenu = () => {
   if (window.innerWidth < 1100) {
@@ -40,6 +57,7 @@ const toggleMenu = () => {
     isMenuOpen.value = false;
   }
 };
+
 const disableScroll = () => {
   document.body.style.overflow = "hidden";
 };
@@ -59,6 +77,7 @@ const enableScroll = () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: var(--second-color);
 }
 
 .navbar {
@@ -108,7 +127,6 @@ const enableScroll = () => {
   color: var(--main-color);
 }
 
-/*Иконка бургер меню*/
 .burger {
   margin-left: 20px;
   display: none;
@@ -197,5 +215,59 @@ const enableScroll = () => {
   .reglog {
     font-size: 14px;
   }
+}
+
+.dropdown {
+  transition: all 0.5s;
+  z-index: 5;
+  margin-right: 5px;
+  display: flex;
+  justify-content: center;
+  width: fit-content;
+}
+
+.dropdown_menu {
+  display: none;
+  position: absolute;
+  background-color: var(--second-color);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  right: 5px;
+  top: 56px;
+  width: 150px;
+  text-align: center;
+}
+
+.dropdown_item {
+  color: var(--text-color);
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.dropdown_item:hover {
+  color: var(--main-color);
+}
+.dropdown:hover .dropdown_menu {
+  display: flex;
+  flex-direction: column;
+}
+
+.avatar {
+  cursor: pointer;
+  line-height: 0;
+  display: inline-block;
+  border: 2px solid rgba(200, 200, 200, 0.4);
+  border-radius: 50%;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4);
+  transition: linear 0.25s;
+  height: 52px;
+  width: 52px;
+  object-fit: cover;
+}
+
+.dropdown.active {
+  opacity: 0;
 }
 </style>

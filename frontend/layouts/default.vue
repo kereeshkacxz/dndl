@@ -1,7 +1,7 @@
 <template>
   <Notification>
-    <div class="fwh main_div">
-      <Header />
+    <div class="main_div">
+      <Header :loginHeader="loginHeader" :logout="logout" :login="login" />
       <div class="content">
         <slot></slot>
       </div>
@@ -14,6 +14,41 @@
 import Notification from "./notification.vue";
 import Header from "./header.vue";
 import Footer from "./footer.vue";
+
+const { $api } = useNuxtApp();
+const login = ref("");
+
+async function loginHeader() {
+  if (localStorage.getItem("token") === null) {
+    logout();
+    return;
+  }
+  try {
+    const response = await $api.get(`/api/v1/user/me`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    localStorage.setItem("admin", response.data.type === "admin");
+    login.value = response.data.username;
+  } catch (error) {
+    console.error(error);
+    logout();
+  }
+}
+
+function logout() {
+  localStorage.removeItem("token");
+  localStorage.setItem("admin", false);
+  login.value = "";
+}
+
+onMounted(() => {
+  loginHeader();
+});
+
+provide("loginHeader", loginHeader);
 </script>
 
 <style scoped>
