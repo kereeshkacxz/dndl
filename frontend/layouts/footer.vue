@@ -30,6 +30,7 @@
 .title {
   font-weight: bold;
   color: var(--main-color);
+  user-select: none;
 }
 
 .decoration {

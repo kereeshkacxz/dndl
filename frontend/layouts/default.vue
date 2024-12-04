@@ -24,7 +24,7 @@ async function loginHeader() {
     return;
   }
   try {
-    const response = await $api.get(`/api/v1/user/me`, {
+    const response = await $api.get(`/api/user/me`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,

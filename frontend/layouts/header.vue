@@ -21,7 +21,8 @@
         class="dropdown"
         :class="{ active: isMenuOpen }"
       >
-        <img src="~/public/test.jpg" class="avatar" />
+        <NuxtImg src="test.jpg" class="avatar" />
+
         <div class="dropdown_menu">
           <NuxtLink to="/profile" class="dropdown_item"> Профиль</NuxtLink>
           <NuxtLink class="dropdown_item" @click="logout">Выйти</NuxtLink>

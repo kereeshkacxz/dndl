@@ -3,6 +3,10 @@
   padding: 0;
   box-sizing: border-box;
   --bg-grad: url("~/public/background-original.png");
+  --bg-modal-grad: linear-gradient(
+    rgba(0, 0, 0, 0.5) 71%,
+    rgba(6, 22, 51, 0.5) 100%
+  );
   --font-size: 18px;
   --header-height: 60px;
 

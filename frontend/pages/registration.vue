@@ -43,7 +43,7 @@ const router = useRouter();
 
 function validation() {
   if (!login.value) {
-    createNotification("Введите логин!", "unsuccess");
+    createNotification("Введите логин!", "error");
     return;
   }
   if (!password.value) {
@@ -73,7 +73,7 @@ function validation() {
 async function registerFunc() {
   try {
     const responseRegister = await $api.post(
-      `/api/v1/user/register`,
+      `/api/user/register`,
       {
         username: login.value,
         password: password.value,
@@ -87,7 +87,7 @@ async function registerFunc() {
     localStorage.setItem("token", responseRegister.data);
     createNotification("Вы успешно зарегистрировались!", "success");
     const responseLogin = await $api.post(
-      `/api/v1/user/login`,
+      `/api/user/login`,
       {
         username: login.value,
         password: password.value,

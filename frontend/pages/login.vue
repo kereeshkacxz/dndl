@@ -35,7 +35,7 @@ const router = useRouter();
 
 function validation() {
   if (!login.value) {
-    createNotification("Введите логин!", "unsuccess");
+    createNotification("Введите логин!", "error");
     return;
   }
   if (!password.value) {
@@ -56,7 +56,7 @@ function validation() {
 async function loginFunc() {
   try {
     const response = await $api.post(
-      `/api/v1/user/login`,
+      `/api/user/login`,
       {
         username: login.value,
         password: password.value,
