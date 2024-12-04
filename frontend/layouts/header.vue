@@ -269,7 +269,8 @@ const enableScroll = () => {
   transition: linear 0.25s;
   height: 52px;
   width: 52px;
-  object-fit: cover; 
+  object-fit: cover;
+}
 
 .dropdown.active {
   opacity: 0;
