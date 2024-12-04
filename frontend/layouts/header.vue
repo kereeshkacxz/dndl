@@ -15,21 +15,25 @@
         >
       </div>
     </transition>
-    <div
-      v-if="props.login !== ''"
-      class="dropdown"
-      :class="{ active: isMenuOpen }"
-    >
-      <img src="~/public/test.jpg" class="avatar" />
-      <div class="dropdown_menu">
-        <NuxtLink to="/profile" class="dropdown_item"> Профиль</NuxtLink>
-        <NuxtLink class="dropdown_item" @click="logout">Выйти</NuxtLink>
+    <div class="wrapper_login">
+      <div
+        v-if="props.login !== ''"
+        class="dropdown"
+        :class="{ active: isMenuOpen }"
+      >
+        <img src="~/public/test.jpg" class="avatar" />
+        <div class="dropdown_menu">
+          <NuxtLink to="/profile" class="dropdown_item"> Профиль</NuxtLink>
+          <NuxtLink class="dropdown_item" @click="logout">Выйти</NuxtLink>
+        </div>
       </div>
-    </div>
-    <div class="div_login_register" v-else>
-      <NuxtLink class="link reglog" :to="`/login`">Вход</NuxtLink>
-      <p class="link">/</p>
-      <NuxtLink class="link reglog" :to="`/registration`">Регистрация</NuxtLink>
+      <div class="div_login_register" v-else>
+        <NuxtLink class="link reglog" :to="`/login`">Вход</NuxtLink>
+        <p class="link">/</p>
+        <NuxtLink class="link reglog" :to="`/registration`"
+          >Регистрация</NuxtLink
+        >
+      </div>
       <div class="burger" :class="{ active: isMenuOpen }" @click="toggleMenu">
         <span></span>
       </div>
@@ -224,6 +228,7 @@ const enableScroll = () => {
   display: flex;
   justify-content: center;
   width: fit-content;
+  align-items: center;
 }
 
 .dropdown_menu {
@@ -264,10 +269,14 @@ const enableScroll = () => {
   transition: linear 0.25s;
   height: 52px;
   width: 52px;
-  object-fit: cover;
-}
+  object-fit: cover; 
 
 .dropdown.active {
   opacity: 0;
+}
+.wrapper_login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
