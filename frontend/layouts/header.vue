@@ -21,7 +21,7 @@
         class="dropdown"
         :class="{ active: isMenuOpen }"
       >
-        <NuxtImg src="test.jpg" class="avatar" />
+        <NuxtImg :src="props.avatar || 'test.jpg'" class="avatar" />
 
         <div class="dropdown_menu">
           <NuxtLink to="/profile" class="dropdown_item"> Профиль</NuxtLink>
@@ -45,13 +45,11 @@
 <script setup>
 const config = useRuntimeConfig();
 const pages = config.public.pages;
-const { $api } = useNuxtApp();
-
 const props = defineProps({
   logout: Function,
   login: String,
+  avatar: String,
 });
-
 const isMenuOpen = ref(false);
 const toggleMenu = () => {
   if (window.innerWidth < 1100) {

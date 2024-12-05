@@ -1,7 +1,12 @@
 <template>
   <Notification>
     <div class="main_div">
-      <Header :loginHeader="loginHeader" :logout="logout" :login="login" />
+      <Header
+        :loginHeader="loginHeader"
+        :logout="logout"
+        :login="login"
+        :avatar="avatar"
+      />
       <div class="content">
         <slot></slot>
       </div>
@@ -17,6 +22,9 @@ import Footer from "./footer.vue";
 
 const { $api } = useNuxtApp();
 const login = ref("");
+const avatar = ref(null);
+const config = useRuntimeConfig();
+const defaultUrl = config.public.backendUrl;
 
 async function loginHeader() {
   if (localStorage.getItem("token") === null) {
@@ -32,6 +40,8 @@ async function loginHeader() {
     });
     localStorage.setItem("admin", response.data.type === "admin");
     login.value = response.data.username;
+    avatar.value = defaultUrl + "/api/get_file?id=" + response.data.avatar_id;
+    console.log(avatar.value);
   } catch (error) {
     console.error(error);
     logout();
@@ -44,11 +54,15 @@ function logout() {
   login.value = "";
 }
 
+function updateAvatar(newValue) {
+  avatar.value = newValue;
+}
 onMounted(() => {
   loginHeader();
 });
 
 provide("loginHeader", loginHeader);
+provide("updateAvatar", updateAvatar);
 </script>
 
 <style scoped>

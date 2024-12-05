@@ -1,97 +1,102 @@
 <template>
-  <div class="person_information">
-    <h1>
-      Личный кабинет <b class="username"> {{ information.username }}</b>
-    </h1>
-    <div class="profile_wrapper">
-      <NuxtImg :src="tempAvatar || 'test.jpg'" class="avatar" />
-      <CButton class="btn" @click="triggerFileInput">
-        Изменить аватарку
-      </CButton>
-      <CButton class="btn" @click="openModal">
-        Изменить информацию о себе
-      </CButton>
-      <input
-        type="file"
-        accept="image/*"
-        ref="fileInput"
-        @change="handleFileChange"
-        style="display: none"
-      />
-    </div>
-    <WrapperModal v-if="isOpenModal" @closeModal="closeModal">
-      <div class="edit_user_info">
-        <h1>Изменить</h1>
-        <div class="menu">
-          <div
-            class="tab"
-            :class="{ active: curTab === 0 }"
-            @click="changeTab(0)"
-          >
-            Информацию о себе
-          </div>
-          <div
-            class="tab"
-            :class="{ active: curTab === 1 }"
-            @click="changeTab(1)"
-          >
-            Пароль
-          </div>
-        </div>
-        <div class="user_info_form" v-if="curTab === 0">
-          <p>Старый пароль</p>
-          <CInput
-            class="input"
-            placeholder="Введите старый пароль"
-            v-model="information.oldPassword"
-            type="password"
-          />
-          <p>Логин</p>
-          <CInput
-            class="input"
-            placeholder="Введите логин"
-            v-model="information.username"
-          />
-          <p>Email</p>
-          <CInput
-            class="input"
-            placeholder="Введите почту"
-            v-model="information.email"
-          />
-          <p>Пол</p>
-          <GenderToggle v-model="information.gender" />
-        </div>
-        <div class="password_form" v-else>
-          <p>Старый пароль</p>
-          <CInput
-            class="input"
-            placeholder="Введите старый пароль"
-            v-model="information.oldPassword"
-            type="password"
-          />
-          <p>Новый пароль</p>
-          <CInput
-            class="input"
-            placeholder="Введите новый пароль"
-            v-model="information.newPassword"
-            type="password"
-          />
-          <p>Повторите новый пароль</p>
-          <CInput
-            class="input"
-            placeholder="Повторите новый пароль"
-            v-model="information.newPasswordRepeat"
-            type="password"
-          />
-        </div>
-        <CButton class="btn" @click="validation"> Сохранить </CButton>
+  <div class="wrapper_person">
+    <div class="person_information">
+      <h1>
+        Личный кабинет <b class="username"> {{ information.username }}</b>
+      </h1>
+      <div class="profile_wrapper">
+        <NuxtImg :src="tempAvatar || 'test.jpg'" class="avatar" />
+        <CButton class="btn" @click="triggerFileInput">
+          Изменить аватарку
+        </CButton>
+        <CButton class="btn" @click="openModal">
+          Изменить информацию о себе
+        </CButton>
+        <input
+          type="file"
+          accept="image/*"
+          ref="fileInput"
+          @change="handleFileChange"
+          style="display: none"
+        />
       </div>
-    </WrapperModal>
+      <WrapperModal v-if="isOpenModal" @closeModal="closeModal">
+        <div class="edit_user_info">
+          <h1>Изменить</h1>
+          <div class="menu">
+            <div
+              class="tab"
+              :class="{ active: curTab === 0 }"
+              @click="changeTab(0)"
+            >
+              Информацию о себе
+            </div>
+            <div
+              class="tab"
+              :class="{ active: curTab === 1 }"
+              @click="changeTab(1)"
+            >
+              Пароль
+            </div>
+          </div>
+          <div class="user_info_form" v-if="curTab === 0">
+            <p>Старый пароль</p>
+            <CInput
+              class="input"
+              placeholder="Введите старый пароль"
+              v-model="information.oldPassword"
+              type="password"
+            />
+            <p>Логин</p>
+            <CInput
+              class="input"
+              placeholder="Введите логин"
+              v-model="information.username"
+            />
+            <p>Email</p>
+            <CInput
+              class="input"
+              placeholder="Введите почту"
+              v-model="information.email"
+            />
+            <p>Пол</p>
+            <GenderToggle v-model="information.gender" />
+          </div>
+          <div class="password_form" v-else>
+            <p>Старый пароль</p>
+            <CInput
+              class="input"
+              placeholder="Введите старый пароль"
+              v-model="information.oldPassword"
+              type="password"
+            />
+            <p>Новый пароль</p>
+            <CInput
+              class="input"
+              placeholder="Введите новый пароль"
+              v-model="information.newPassword"
+              type="password"
+            />
+            <p>Повторите новый пароль</p>
+            <CInput
+              class="input"
+              placeholder="Повторите новый пароль"
+              v-model="information.newPasswordRepeat"
+              type="password"
+            />
+          </div>
+          <CButton class="btn" @click="validation"> Сохранить </CButton>
+        </div>
+      </WrapperModal>
+    </div>
+    <CharactesTabs />
   </div>
 </template>
 
 <script setup>
+import CharactesTabs from "~/components/profile/charactesTabs.vue";
 import GenderToggle from "~/components/profile/genderToggle.vue";
+
 const { $api } = useNuxtApp();
 const information = ref({});
 const isOpenModal = ref(false);
@@ -100,6 +105,8 @@ const fileInput = ref(null);
 const router = useRouter();
 const curTab = ref(0);
 const tempAvatar = ref(null);
+const config = useRuntimeConfig();
+const defaultUrl = config.public.backendUrl;
 
 function openModal() {
   isOpenModal.value = true;
@@ -156,19 +163,9 @@ async function fetchData() {
       },
     });
     information.value = responseInformation.data;
-    if (information.value.avatar_id) {
-      const responseAvatar = await $api.get(
-        `api/get_file?id=${information.value.avatar_id}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+    if (information.value.avatar_id)
       tempAvatar.value =
-        "http://localhost:8080/api/static/avatars/2024-12-04_23-11-40_386be5b6-df63-432b-87ad-ef7cbf0af55e.jpg";
-    }
+        defaultUrl + "/api/get_file?id=" + information.value.avatar_id;
   } catch (error) {
     console.error("Ошибка загрузки данных", error);
     createNotification(`${error.response.data.detail}`, "error");
@@ -227,7 +224,9 @@ async function uploadAvatar() {
       },
     });
     createNotification("Аватар успешно загружен!", "success");
-    information.value.avatar_id = response.data.avatar_id;
+    tempAvatar.value =
+      defaultUrl + "/api/get_file?id=" + response.data.avatar_id;
+    updateAvatar(tempAvatar.value);
   } catch (error) {
     console.error("Ошибка загрузки аватара:", error);
     createNotification(`${error.response.data.detail}`, "error");
@@ -246,9 +245,11 @@ onMounted(() => {
 });
 
 let createNotification;
+let updateAvatar;
 
 function fetch() {
   createNotification = inject("createNotification");
+  updateAvatar = inject("updateAvatar");
 }
 </script>
 
@@ -333,5 +334,10 @@ function fetch() {
 .input {
   padding: 5px;
   height: 45px;
+}
+.wrapper_person {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
