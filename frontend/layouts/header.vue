@@ -21,7 +21,10 @@
         class="dropdown"
         :class="{ active: isMenuOpen }"
       >
-        <NuxtImg :src="props.avatar || 'test.jpg'" class="avatar" />
+        <NuxtImg
+          :src="props.avatar ? props.avatar : 'test.jpg'"
+          class="avatar"
+        />
 
         <div class="dropdown_menu">
           <NuxtLink to="/profile" class="dropdown_item"> Профиль</NuxtLink>
