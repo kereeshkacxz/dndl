@@ -42,7 +42,6 @@ async function loginHeader() {
     login.value = response.data.username;
     if (response.data.avatar_id)
       avatar.value = defaultUrl + "/api/get_file?id=" + response.data.avatar_id;
-    console.log(avatar.value);
   } catch (error) {
     console.error(error);
     logout();
