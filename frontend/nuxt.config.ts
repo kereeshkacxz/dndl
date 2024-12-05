@@ -58,7 +58,8 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       backendUrl:
-        `${process.env.BACKEND_URL}:${process.env.BACKEND_PORT}`
+        `${process.env.BACKEND_URL}:${process.env.BACKEND_PORT}` ||
+        "http://localhost:8080", // URL бэкенда
       pages: {
         manuals: "Руководства",
         "training-modules": "Обучающие модули",
