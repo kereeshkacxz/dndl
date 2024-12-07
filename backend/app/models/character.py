@@ -84,3 +84,10 @@ class Character(SQLModel):
     initiative: Optional[int] = Field(default=None, nullable=True)  # Инициатива
     speed: Optional[int] = Field(default=None, ge=0, nullable=True)  # Скорость передвижения
     notes: Optional[str] = Field(default=None, nullable=True)  # Дополнительные заметки
+
+class CharacterUpdate(Character):
+    name: Optional[str] = None  # Имя персонажа
+    player: Optional[str] = None  # Имя игрока
+    class_name: Optional[str] = None  # Класс персонажа
+    level: Optional[int] = Field(default=None, ge=1)  # Уровень персонажа, должен быть больше или равен 1
+    race: Optional[str] = None  # Раса персонажа
