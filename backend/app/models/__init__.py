@@ -1,7 +1,7 @@
 from .token import Token, TokenData
 from .files import FilesTable
 from .user import UserSchema, UserTable, RegistrationForm, EditForm, LoginForm
-from .character import Character, CharacterTable
+from .character import Character, CharacterTable, CharacterUpdate
 
 __all__ = [
     "UserTable",
@@ -14,4 +14,5 @@ __all__ = [
     "FilesTable",
     "Character",
     "CharacterTable",
+    "CharacterUpdate",
 ]
