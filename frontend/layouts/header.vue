@@ -225,7 +225,7 @@ const enableScroll = () => {
 
 .dropdown {
   transition: all 0.5s;
-  z-index: 5;
+  z-index: 4;
   margin-right: 5px;
   display: flex;
   justify-content: center;
@@ -274,9 +274,6 @@ const enableScroll = () => {
   object-fit: cover;
 }
 
-.dropdown.active {
-  opacity: 0;
-}
 .wrapper_login {
   display: flex;
   align-items: center;

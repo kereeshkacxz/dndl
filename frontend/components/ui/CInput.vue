@@ -100,7 +100,7 @@ function handleBlur(e) {
 .cinput {
   outline: none;
   border: none;
-  background-color: black;
+  background-color: var(--editor-color);
   border: 2px solid var(--second-color);
   padding: 4px 6px;
   font-size: 16px;

@@ -89,7 +89,9 @@
         </div>
       </WrapperModal>
     </div>
-    <CharactesTabs />
+    <div class="characters_information">
+      <CharactesTabs />
+    </div>
   </div>
 </template>
 
@@ -153,6 +155,7 @@ function validation() {
   }
   saveChange();
 }
+
 async function fetchData() {
   if (!localStorage.getItem("token")) router.push("/login");
   try {
@@ -262,9 +265,12 @@ function fetch() {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  width: 100%;
+  flex: 1;
 }
-
+.characters_information {
+  flex: 2;
+  border-radius: 10px;
+}
 .profile_wrapper {
   position: relative;
   display: inline-block;
@@ -339,5 +345,16 @@ function fetch() {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  gap: 20px;
+}
+
+@media (max-width: 1000px) {
+  .wrapper_person {
+    flex-direction: column;
+  }
+  .characters_information {
+    width: 100%;
+  }
 }
 </style>

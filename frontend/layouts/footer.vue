@@ -49,7 +49,7 @@
   gap: 125px;
 }
 .decoration-left {
-  transform: scaleX(-1); /* Отзеркаливание для левой стороны */
+  transform: scaleX(-1);
 }
 .contacts {
   display: flex;

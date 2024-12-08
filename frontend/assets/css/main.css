@@ -15,7 +15,7 @@
   --success-color: #46af51;
   --unsuccess-color: #e84646;
   --second-color: #161616;
-
+  --editor-color: black;
   color: var(--text-color);
   font-family: "Roboto", sans-serif;
   font-optical-sizing: auto;

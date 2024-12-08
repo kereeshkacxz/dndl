@@ -38,7 +38,7 @@ const toggleGender = () => {
 .toggle {
   width: 100px;
   height: 50px;
-  background-color: black;
+  background-color:var(--editor-color);
   border-radius: 10px;
   position: relative;
   display: flex;

@@ -79,6 +79,6 @@ provide("updateAvatar", updateAvatar);
   justify-content: center;
   align-items: center;
   text-align: center;
-  min-height: calc(100vh - 250px);
+  min-height: calc(100vh - 170px);
 }
 </style>

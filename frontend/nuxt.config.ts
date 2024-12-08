@@ -67,7 +67,7 @@ export default defineNuxtConfig({
         editor: "Редактор",
       },
     },
-  },
+  }, 
 
   components: [
     {
