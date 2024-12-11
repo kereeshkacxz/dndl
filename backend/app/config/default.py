@@ -20,7 +20,7 @@ class DefaultSettings(BaseSettings):
     ALGORITHM: str
     ACCESS_TOKEN_EXPIRE_MINUTES: int
 
-    OAUTH_YANDEX_TOKEN: str
+    YANDEX_SECRET_KEY: str
     FOLDER_ID: str
 
     model_config = SettingsConfigDict(env_file=".env")
