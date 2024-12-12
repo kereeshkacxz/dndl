@@ -49,33 +49,33 @@ services:
     networks:
       - networkName
 
-  # dndl-front:
-  #   container_name: ${FRONTEND_HOST}
-  #   hostname: ${FRONTEND_HOST}
-  #   build:
-  #     context: ./frontend
-  #     dockerfile: ./Dockerfile
-  #   ports:
-  #     - "${FRONTEND_PORT}:${FRONTEND_PORT}"
-  #   env_file:
-  #     - ./.env
-  #   restart: on-failure
-  #   volumes:
-  #     - ./frontend/assets:/web/assets
-  #     - ./frontend/components:/web/components
-  #     - ./frontend/layouts:/web/layouts
-  #     - ./frontend/middleware:/web/middleware
-  #     - ./frontend/pages:/web/pages
-  #     - ./frontend/plugins:/web/plugins
-  #     - ./frontend/public:/web/public
-  #     - ./frontend/utils:/web/utils
-  #     - ./frontend/nuxt.config.ts:/web/nuxt.config.ts
-  #   environment:
-  #     - NODE_ENV=development
-  #   networks:
-  #     - networkName
-  #   command: npm run dev
-  #   cpus: 0.5
+  dndl-front:
+    container_name: ${FRONTEND_HOST}
+    hostname: ${FRONTEND_HOST}
+    build:
+      context: ./frontend
+      dockerfile: ./Dockerfile
+    ports:
+      - "${FRONTEND_PORT}:${FRONTEND_PORT}"
+    env_file:
+      - ./.env
+    restart: on-failure
+    volumes:
+      - ./frontend/assets:/web/assets
+      - ./frontend/components:/web/components
+      - ./frontend/layouts:/web/layouts
+      - ./frontend/middleware:/web/middleware
+      - ./frontend/pages:/web/pages
+      - ./frontend/plugins:/web/plugins
+      - ./frontend/public:/web/public
+      - ./frontend/utils:/web/utils
+      - ./frontend/nuxt.config.ts:/web/nuxt.config.ts
+    environment:
+      - NODE_ENV=development
+    networks:
+      - networkName
+    command: npm run dev
+    cpus: 0.5
 
 networks:
   networkName:
