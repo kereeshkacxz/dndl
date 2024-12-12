@@ -1,6 +1,5 @@
 import os
 import uuid
-import base64
 from typing import Annotated
 from fastapi import Depends, UploadFile
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -29,28 +28,6 @@ async def save_file(
 
     with open(path + '/' + filename, 'wb') as f:
         f.write(await file.read())
-
-    return file_data
-
-async def save_img_file(
-    file: str,
-    path: str, 
-    session: Annotated[AsyncSession, Depends(getSession)],
-) -> FilesTable | None:
-
-    if not os.path.exists(path):
-        return None
-
-    filename = datetime.now().strftime('%Y-%m-%d_%H-%M-%S') + '_' + str(uuid.uuid4()) + '.jpeg'
-
-    file_data = FilesTable(filename=filename, filepath=path)
-    session.add(file_data)
-    await session.commit()
-    await session.refresh(file_data)
-
-    print(path + '/' + filename)
-    with open(path + '/' + filename, 'wb') as f:
-        f.write(base64.b64decode(file))
 
     return file_data
 
