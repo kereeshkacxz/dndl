@@ -81,4 +81,9 @@ provide("updateAvatar", updateAvatar);
   text-align: center;
   min-height: calc(100vh - 170px);
 }
+@media (max-width: 600px) {
+  .content {
+    padding: calc(40px + var(--header-height)) 20px;
+  }
+}
 </style>
