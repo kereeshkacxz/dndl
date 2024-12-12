@@ -265,11 +265,12 @@ function fetch() {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  flex: 1;
+  width: 33%;
 }
 .characters_information {
-  flex: 2;
   border-radius: 10px;
+  display: flex;
+  width: 67%;
 }
 .profile_wrapper {
   position: relative;
@@ -345,8 +346,9 @@ function fetch() {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
   gap: 20px;
+  flex: 1;
+  width: 100%;
 }
 
 @media (max-width: 1000px) {

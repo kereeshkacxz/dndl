@@ -4,6 +4,7 @@
       :src="file ? filePath : 'test.jpg'"
       class="image"
       @click="fileInput.click()"
+      preload
     />
     <input
       type="file"

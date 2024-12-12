@@ -69,7 +69,6 @@ const props = defineProps({
 });
 const modifer = ref("");
 const name = ref("");
-
 const fields = ref([
   {
     title: "ЧЕРТЫ ХАРАКТЕРА",

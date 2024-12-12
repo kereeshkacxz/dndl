@@ -70,7 +70,7 @@
         <div class="inspiration_not_image">
           <CInput
             v-model="props.modelValue.bonus"
-            class="bonus"
+            class="bonus_input"
             type="number"
           />
         </div>
@@ -384,11 +384,14 @@ function toggleInspiration() {
   border-radius: 10px;
   padding: 5px;
   height: 62px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.bonus {
-  aspect-ratio: 1/1;
+.bonus_input {
   border-radius: 10px;
   height: 50px;
+  width: 50px;
   text-align: center;
   font-size: 25px;
 }
@@ -397,6 +400,9 @@ function toggleInspiration() {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  }
+  .right_specification {
+    width: 100%;
   }
 }
 </style>
