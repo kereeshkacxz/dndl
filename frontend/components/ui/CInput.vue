@@ -117,4 +117,13 @@ function handleBlur(e) {
 .cinput:focus {
   border: 2px solid var(--main-color);
 }
+.cinput::-webkit-inner-spin-button,
+.cinput::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.cinput[type="number"] {
+  -moz-appearance: textfield;
+}
 </style>
